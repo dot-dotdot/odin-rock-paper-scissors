@@ -18,3 +18,20 @@ function getComputerChoice() {
 
     return "scissors";
 }
+
+function getHumanChoice() {
+    let humanChoice;
+
+    let choiceMade = false;
+    while (!choiceMade) {
+        humanChoice = prompt("Rock, paper, or scissors? Make you choice.").trim().toLowerCase();
+
+        if (humanChoice === "rock" || humanChoice === "paper" || humanChoice === "scissors") {
+            choiceMade = true;
+        } else {
+            humanChoice = null;
+        }
+    }
+
+    return humanChoice;
+}
