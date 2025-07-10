@@ -35,12 +35,26 @@ function getHumanChoice() {
     return humanChoice;
 }
 
-
-console.log(getHumanChoice());
-
 function playGame() {
     let humanScore = 0;
     let computerScore = 0;
+
+    for (let i = 1; i <= 5; i++) {
+        const humanChoice = getHumanChoice();
+        const computerChoice = getComputerChoice();
+        const roundResult = playRound(humanChoice, computerChoice);
+
+        console.log(roundResult);
+        console.log(humanScore + " : " + computerScore);
+
+        if (roundResult === "It's a draw!") {
+            i--;
+        }
+    }
+
+    humanScore > computerScore ? 
+        console.log("Congrats! You've won!") : 
+        console.log("Sorry! You've lost.");
 
     function playRound(humanChoice, computerChoice) {
         const win = "You win! ";
@@ -49,27 +63,32 @@ function playGame() {
         const scissorsPaper = "Scissors beat Paper.";
         const rockScissors = "Rock beats Scissors.";
         
+        let text;
+
         if (humanChoice === ROCK && computerChoice === PAPER) {
-            console.log(lose + paperRock);
+            text = lose + paperRock;
             computerScore++;
         } else if (humanChoice === PAPER && computerChoice === ROCK) {
-            console.log(win + paperRock);
+            text = win + paperRock;
             humanScore++;
         } else if (humanChoice === PAPER && computerChoice === SCISSORS) {
-            console.log(lose + scissorsPaper);
+            text = lose + scissorsPaper;
             computerScore++;
         } else if (humanChoice === SCISSORS && computerChoice === PAPER) {
-            console.log(win + scissorsPaper);
+            text = win + scissorsPaper;
             humanScore++;
         } else if (humanChoice === SCISSORS && computerChoice === ROCK) {
-            console.log(lose + rockScissors);
+            text = lose + rockScissors;
             computerScore++;
         } else if (humanChoice === ROCK && computerChoice === SCISSORS) {
-            console.log(win + rockScissors);
+            text = win + rockScissors;
             humanScore++;
         } else {
-            console.log("It's a draw!");
-            draw = true;
+            text = "It's a draw!";
         }
+
+        return text;
     }
 }
+
+playGame();
