@@ -15,19 +15,28 @@ function getHumanChoice() {
 
     let choiceMade = false;
     while (!choiceMade) {
-        humanChoice = prompt("Rock, paper, or scissors? Make you choice.").trim().toLowerCase();
+        humanChoice = prompt(
+            "Rock, paper, or scissors? Make you choice.").trim().toLowerCase();
 
-        if (humanChoice === "rock" || humanChoice === "paper" || humanChoice === "scissors") {
+        if (humanChoice === "rock") {
+            humanChoice = ROCK;
+            choiceMade = true;
+        } else if (humanChoice === "paper") {
+            humanChoice = PAPER;
+            choiceMade = true;
+        } else if (humanChoice === "scissors") {
+            humanChoice = SCISSORS;
             choiceMade = true;
         } else {
             humanChoice = null;
         }
     }
 
-    if (humanChoice === "rock") return ROCK;
-    if (humanChoice === "paper") return PAPER;
-    return SCISSORS;
+    return humanChoice;
 }
+
+
+console.log(getHumanChoice());
 
 function playGame() {
     let humanScore = 0;
@@ -40,8 +49,6 @@ function playGame() {
         const scissorsPaper = "Scissors beat Paper.";
         const rockScissors = "Rock beats Scissors.";
         
-        let draw = false;
-
         if (humanChoice === ROCK && computerChoice === PAPER) {
             console.log(lose + paperRock);
             computerScore++;
@@ -64,7 +71,5 @@ function playGame() {
             console.log("It's a draw!");
             draw = true;
         }
-
-        return draw;
     }
 }
