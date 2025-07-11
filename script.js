@@ -5,9 +5,10 @@ const PAPER = 2;
 const SCISSORS = 3;
 const CHOICES_COUNT = 3;
 
-
 function getComputerChoice() {
-    return Math.floor(Math.random() * CHOICES_COUNT) + 1;
+    let choiceArray = ["rock", "paper", "scissors"];
+
+    return choiceArray[Math.floor(Math.random() * CHOICES_COUNT)];
 }
 
 function getHumanChoice() {
@@ -18,14 +19,7 @@ function getHumanChoice() {
         humanChoice = prompt(
             "Rock, paper, or scissors? Make you choice.").trim().toLowerCase();
 
-        if (humanChoice === "rock") {
-            humanChoice = ROCK;
-            choiceMade = true;
-        } else if (humanChoice === "paper") {
-            humanChoice = PAPER;
-            choiceMade = true;
-        } else if (humanChoice === "scissors") {
-            humanChoice = SCISSORS;
+        if (humanChoice === "rock" || humanChoice === "paper" || humanChoice === "scissors") {
             choiceMade = true;
         } else {
             humanChoice = null;
@@ -91,4 +85,4 @@ function playGame() {
     }
 }
 
-playGame();
+// playGame();
