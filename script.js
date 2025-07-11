@@ -1,8 +1,5 @@
 "use strict";
 
-const ROCK = 1;
-const PAPER = 2;
-const SCISSORS = 3;
 const CHOICES_COUNT = 3;
 
 function getComputerChoice() {
@@ -51,38 +48,18 @@ function playGame() {
         console.log("Sorry! You've lost.");
 
     function playRound(humanChoice, computerChoice) {
-        const win = "You win! ";
-        const lose = "You lose! ";
-        const paperRock = "Paper beats Rock.";
-        const scissorsPaper = "Scissors beat Paper.";
-        const rockScissors = "Rock beats Scissors.";
-        
-        let text;
-
-        if (humanChoice === ROCK && computerChoice === PAPER) {
-            text = lose + paperRock;
-            computerScore++;
-        } else if (humanChoice === PAPER && computerChoice === ROCK) {
-            text = win + paperRock;
+        if (humanChoice === computerChoice) {
+            return "It's a draw!";
+        } else if ((humanChoice === "paper" && computerChoice === "rock") 
+            || (humanChoice === "scissors" && computerChoice === "paper") 
+            || (humanChoice === "rock" && computerChoice === "scissors")) {
             humanScore++;
-        } else if (humanChoice === PAPER && computerChoice === SCISSORS) {
-            text = lose + scissorsPaper;
-            computerScore++;
-        } else if (humanChoice === SCISSORS && computerChoice === PAPER) {
-            text = win + scissorsPaper;
-            humanScore++;
-        } else if (humanChoice === SCISSORS && computerChoice === ROCK) {
-            text = lose + rockScissors;
-            computerScore++;
-        } else if (humanChoice === ROCK && computerChoice === SCISSORS) {
-            text = win + rockScissors;
-            humanScore++;
+            return `You win! ${humanChoice} beats ${computerChoice}`;
         } else {
-            text = "It's a draw!";
+            computerScore++;
+            return `You lose! ${computerChoice} beats ${humanChoice}`;
         }
-
-        return text;
     }
 }
 
-// playGame();
+playGame();
