@@ -8,20 +8,18 @@ function playGame() {
     let computerScore = 0;
     const buttonsDiv = document.querySelector(".buttons");
 
+    const roundResultDisplay = document.querySelector(".round-result");
+    const resultContent = document.createElement("p"); 
+    roundResultDisplay.appendChild(resultContent);
+    
+    const scoreDisplay = document.querySelector(".score");
+    const scoreContent = document.createElement("p");
+    scoreDisplay.appendChild(scoreContent);
+
     buttonsDiv.addEventListener("click", function handleRound(event) {
         const roundResult = playRound(event.target.id, getComputerChoice());
-
-        const roundResultDisplay = document.querySelector(".round-result");
-        const resultContent = document.createElement("p"); 
         resultContent.textContent = roundResult;
-        
-        if (roundResultDisplay.children.length > 0) {
-            roundResultDisplay.firstChild.replaceWith(resultContent);
-        } else {
-            roundResultDisplay.appendChild(resultContent);
-        }
-
-        console.log(humanScore, computerScore);
+        scoreContent.textContent = `${humanScore} : ${computerScore}`;
 
         if (humanScore === ROUNDS_TOTAL || computerScore === ROUNDS_TOTAL) {
             buttonsDiv.removeEventListener("click", handleRound);
@@ -29,14 +27,16 @@ function playGame() {
             const buttons = document.querySelectorAll(".buttons > button");
             buttons.forEach(button => button.setAttribute("disabled", "true"));
             
-            checkGameResult();
+            const endMessage = document.createElement("p");
+            endMessage.textContent = checkGameResult();
+            document.querySelector("body").appendChild(endMessage);
         }
     });
 
     function checkGameResult() {
-        humanScore > computerScore ? 
-            console.log("Congrats! You've won!") : 
-            console.log("Sorry! You've lost.");
+        return humanScore > computerScore ? 
+            "Congrats! You've won!" : 
+            "Sorry! You've lost.";
     }
 
     function playRound(humanChoice, computerChoice) {
