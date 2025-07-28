@@ -9,8 +9,18 @@ function playGame() {
     const buttonsDiv = document.querySelector(".buttons");
 
     buttonsDiv.addEventListener("click", function handleRound(event) {
-        let roundResult = playRound(event.target.id, getComputerChoice());
-        console.log(roundResult);
+        const roundResult = playRound(event.target.id, getComputerChoice());
+
+        const roundResultDisplay = document.querySelector(".round-result");
+        const resultContent = document.createElement("p"); 
+        resultContent.textContent = roundResult;
+        
+        if (roundResultDisplay.children.length > 0) {
+            roundResultDisplay.firstChild.replaceWith(resultContent);
+        } else {
+            roundResultDisplay.appendChild(resultContent);
+        }
+
         console.log(humanScore, computerScore);
 
         if (humanScore === ROUNDS_TOTAL || computerScore === ROUNDS_TOTAL) {
@@ -18,24 +28,16 @@ function playGame() {
 
             const buttons = document.querySelectorAll(".buttons > button");
             buttons.forEach(button => button.setAttribute("disabled", "true"));
+            
+            checkGameResult();
         }
     });
 
-    // for (let i = 1; i <= 5; i++) {
-    //     const computerChoice = getComputerChoice();
-    //     const roundResult = playRound(humanChoice, computerChoice);
-
-    //     console.log(roundResult);
-    //     console.log(humanScore + " : " + computerScore);
-
-    //     if (roundResult === "It's a draw!") {
-    //         i--;
-    //     }
-    // }
-
-    humanScore > computerScore ? 
-        console.log("Congrats! You've won!") : 
-        console.log("Sorry! You've lost.");
+    function checkGameResult() {
+        humanScore > computerScore ? 
+            console.log("Congrats! You've won!") : 
+            console.log("Sorry! You've lost.");
+    }
 
     function playRound(humanChoice, computerChoice) {
         if (humanChoice === computerChoice) {
@@ -44,10 +46,10 @@ function playGame() {
             || (humanChoice === "scissors" && computerChoice === "paper") 
             || (humanChoice === "rock" && computerChoice === "scissors")) {
             humanScore++;
-            return `You win! ${humanChoice} beats ${computerChoice}`;
+            return `You win: ${humanChoice} beats ${computerChoice}`;
         } else {
             computerScore++;
-            return `You lose! ${computerChoice} beats ${humanChoice}`;
+            return `You lose: ${computerChoice} beats ${humanChoice}`;
         }
     }
 
