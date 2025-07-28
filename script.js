@@ -8,40 +8,28 @@ function getComputerChoice() {
     return choiceArray[Math.floor(Math.random() * CHOICES_COUNT)];
 }
 
-function getHumanChoice() {
-    let humanChoice;
-
-    let choiceMade = false;
-    while (!choiceMade) {
-        humanChoice = prompt(
-            "Rock, paper, or scissors? Make you choice.").trim().toLowerCase();
-
-        if (humanChoice === "rock" || humanChoice === "paper" || humanChoice === "scissors") {
-            choiceMade = true;
-        } else {
-            humanChoice = null;
-        }
-    }
-
-    return humanChoice;
-}
-
 function playGame() {
     let humanScore = 0;
     let computerScore = 0;
+    const buttons = document.querySelector(".buttons");
 
-    for (let i = 1; i <= 5; i++) {
-        // const humanChoice = getHumanChoice();
-        const computerChoice = getComputerChoice();
-        const roundResult = playRound(humanChoice, computerChoice);
-
+    buttons.addEventListener("click", (event) => {
+        let roundResult = playRound(event.target.id, getComputerChoice());
         console.log(roundResult);
-        console.log(humanScore + " : " + computerScore);
+        console.log(humanScore, computerScore);
+    });
 
-        if (roundResult === "It's a draw!") {
-            i--;
-        }
-    }
+    // for (let i = 1; i <= 5; i++) {
+    //     const computerChoice = getComputerChoice();
+    //     const roundResult = playRound(humanChoice, computerChoice);
+
+    //     console.log(roundResult);
+    //     console.log(humanScore + " : " + computerScore);
+
+    //     if (roundResult === "It's a draw!") {
+    //         i--;
+    //     }
+    // }
 
     humanScore > computerScore ? 
         console.log("Congrats! You've won!") : 
