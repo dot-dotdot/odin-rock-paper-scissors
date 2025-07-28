@@ -31,7 +31,7 @@ function playGame() {
     let computerScore = 0;
 
     for (let i = 1; i <= 5; i++) {
-        const humanChoice = getHumanChoice();
+        // const humanChoice = getHumanChoice();
         const computerChoice = getComputerChoice();
         const roundResult = playRound(humanChoice, computerChoice);
 
