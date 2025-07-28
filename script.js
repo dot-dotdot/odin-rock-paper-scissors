@@ -2,27 +2,31 @@
 
 const CHOICES_COUNT = 3;
 const ROUNDS_TOTAL = 5;
+let gameFinished = true;
+
+const buttonsContainer = document.querySelector(".buttons");
+
+const roundResultDisplay = document.querySelector(".round-result");
+const resultContent = document.createElement("p"); 
+roundResultDisplay.appendChild(resultContent);
+
+const scoreDisplay = document.querySelector(".score");
+const scoreContent = document.createElement("p");
+scoreDisplay.appendChild(scoreContent);
+
 
 function playGame() {
+    gameFinished = false;
     let humanScore = 0;
     let computerScore = 0;
-    const buttonsDiv = document.querySelector(".buttons");
-
-    const roundResultDisplay = document.querySelector(".round-result");
-    const resultContent = document.createElement("p"); 
-    roundResultDisplay.appendChild(resultContent);
     
-    const scoreDisplay = document.querySelector(".score");
-    const scoreContent = document.createElement("p");
-    scoreDisplay.appendChild(scoreContent);
-
-    buttonsDiv.addEventListener("click", function handleRound(event) {
+    buttonsContainer.addEventListener("click", function handleRound(event) {
         const roundResult = playRound(event.target.id, getComputerChoice());
         resultContent.textContent = roundResult;
         scoreContent.textContent = `${humanScore} : ${computerScore}`;
 
         if (humanScore === ROUNDS_TOTAL || computerScore === ROUNDS_TOTAL) {
-            buttonsDiv.removeEventListener("click", handleRound);
+            buttonsContainer.removeEventListener("click", handleRound);
 
             const buttons = document.querySelectorAll(".buttons > button");
             buttons.forEach(button => button.setAttribute("disabled", "true"));
@@ -30,6 +34,8 @@ function playGame() {
             const endMessage = document.createElement("p");
             endMessage.textContent = checkGameResult();
             document.querySelector("body").appendChild(endMessage);
+
+            gameFinished = true;
         }
     });
 
@@ -46,10 +52,10 @@ function playGame() {
             || (humanChoice === "scissors" && computerChoice === "paper") 
             || (humanChoice === "rock" && computerChoice === "scissors")) {
             humanScore++;
-            return `You win: ${humanChoice} beats ${computerChoice}`;
+            return `You win: ${humanChoice} beats ${computerChoice}.`;
         } else {
             computerScore++;
-            return `You lose: ${computerChoice} beats ${humanChoice}`;
+            return `You lose: ${computerChoice} beats ${humanChoice}.`;
         }
     }
 
@@ -60,3 +66,7 @@ function playGame() {
 }
 
 playGame();
+
+function restartGame() {
+
+}
