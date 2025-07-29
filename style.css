@@ -64,3 +64,26 @@ h1 {
     filter: grayscale(100%);
     cursor: not-allowed;
 }
+
+.round-result,
+.end-message {
+    font-size: 20px;
+}
+
+.score p {
+    font-size: 45px;
+    margin: 10px;
+}
+
+#restart-button {
+    font-size: 30px;
+    color: #fbfbfb;
+    background-color: rgb(220, 32, 69);
+    padding: 5px 15px;
+    border: none;
+    border-radius: 6px;
+}
+
+#restart-button:hover {
+    background-color: rgb(183, 33, 63);
+}

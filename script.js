@@ -19,13 +19,16 @@ restartButton.addEventListener("click", () => {
     window.location.reload();
 });
 
+playGame();
+
 function playGame() {
     let humanScore = 0;
     let computerScore = 0;
     
     buttonsContainer.addEventListener("click", function handleRound(event) {
         if (event.target.tagName === "BUTTON") {
-            const roundResult = playRound(event.target.id, getComputerChoice());
+            const playerChoice = event.target.id;
+            const roundResult = playRound(playerChoice, getComputerChoice());
             resultContent.textContent = roundResult;
             scoreContent.textContent = `${humanScore} : ${computerScore}`;
 
@@ -69,5 +72,3 @@ function playGame() {
             "Sorry! You've lost.";
     }
 }
-
-playGame();
