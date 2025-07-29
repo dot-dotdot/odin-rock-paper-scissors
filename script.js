@@ -24,7 +24,7 @@ playGame();
 function playGame() {
     let humanScore = 0;
     let computerScore = 0;
-
+    
     buttonsContainer.addEventListener("click", function handleRound(event) {
         if (event.target.tagName === "BUTTON") {
             const playerChoice = event.target.id;
@@ -33,6 +33,10 @@ function playGame() {
             scoreContent.textContent = `${humanScore} : ${computerScore}`;
             
             if (humanScore === ROUNDS_TOTAL || computerScore === ROUNDS_TOTAL) {
+                endGame();
+            }
+            
+            function endGame() {
                 buttonsContainer.removeEventListener("click", handleRound);
                 
                 const buttons = document.querySelectorAll(".buttons > button");
@@ -41,7 +45,7 @@ function playGame() {
                 const endMessage = document.createElement("p");
                 endMessage.textContent = getFinalMessage();
                 document.querySelector(".end-message").appendChild(endMessage);
-
+                
                 restartButton.removeAttribute("hidden");
             }
         }
