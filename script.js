@@ -24,30 +24,26 @@ function playGame() {
     let computerScore = 0;
     
     buttonsContainer.addEventListener("click", function handleRound(event) {
-        const roundResult = playRound(event.target.id, getComputerChoice());
-        resultContent.textContent = roundResult;
-        scoreContent.textContent = `${humanScore} : ${computerScore}`;
+        if (event.target.tagName === "BUTTON") {
+            const roundResult = playRound(event.target.id, getComputerChoice());
+            resultContent.textContent = roundResult;
+            scoreContent.textContent = `${humanScore} : ${computerScore}`;
 
-        if (humanScore === ROUNDS_TOTAL || computerScore === ROUNDS_TOTAL) {
-            buttonsContainer.removeEventListener("click", handleRound);
+            if (humanScore === ROUNDS_TOTAL || computerScore === ROUNDS_TOTAL) {
+                buttonsContainer.removeEventListener("click", handleRound);
 
-            const buttons = document.querySelectorAll(".buttons > button");
-            buttons.forEach(button => button.setAttribute("disabled", "true"));
-            
-            const endMessage = document.createElement("p");
-            endMessage.textContent = checkGameResult();
-            document.querySelector(".end-message").appendChild(endMessage);
+                const buttons = document.querySelectorAll(".buttons > button");
+                buttons.forEach(button => button.setAttribute("disabled", "true"));
+                
+                const endMessage = document.createElement("p");
+                endMessage.textContent = getFinalMessage();
+                document.querySelector(".end-message").appendChild(endMessage);
 
-            restartButton.removeAttribute("hidden");
+                restartButton.removeAttribute("hidden");
+            }
         }
     });
-
-    function checkGameResult() {
-        return humanScore > computerScore ? 
-            "Congrats! You've won!" : 
-            "Sorry! You've lost.";
-    }
-
+    
     function playRound(humanChoice, computerChoice) {
         if (humanChoice === computerChoice) {
             return "It's a draw!";
@@ -65,6 +61,12 @@ function playGame() {
     function getComputerChoice() {
         let choiceArray = ["rock", "paper", "scissors"];
         return choiceArray[Math.floor(Math.random() * CHOICES_COUNT)];
+    }
+    
+    function getFinalMessage() {
+        return humanScore > computerScore ? 
+            "Congrats! You've won!" : 
+            "Sorry! You've lost.";
     }
 }
 
