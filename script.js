@@ -2,7 +2,6 @@
 
 const CHOICES_COUNT = 3;
 const ROUNDS_TOTAL = 5;
-let gameFinished = true;
 
 const buttonsContainer = document.querySelector(".buttons");
 
@@ -14,9 +13,13 @@ const scoreDisplay = document.querySelector(".score");
 const scoreContent = document.createElement("p");
 scoreDisplay.appendChild(scoreContent);
 
+const restartButton = document.querySelector("#restart-button");
+restartButton.hidden = true;
+restartButton.addEventListener("click", () => {
+    window.location.reload();
+});
 
 function playGame() {
-    gameFinished = false;
     let humanScore = 0;
     let computerScore = 0;
     
@@ -33,9 +36,9 @@ function playGame() {
             
             const endMessage = document.createElement("p");
             endMessage.textContent = checkGameResult();
-            document.querySelector("body").appendChild(endMessage);
+            document.querySelector(".end-message").appendChild(endMessage);
 
-            gameFinished = true;
+            restartButton.removeAttribute("hidden");
         }
     });
 
@@ -66,7 +69,3 @@ function playGame() {
 }
 
 playGame();
-
-function restartGame() {
-
-}
